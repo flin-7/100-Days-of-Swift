@@ -32,6 +32,8 @@ class ViewController: UIViewController {
         button3.layer.borderColor = UIColor.lightGray.cgColor
         
         askQuestion()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Score", style: .plain, target: self, action: #selector(showScore))
     }
 
     func askQuestion(action: UIAlertAction! = nil) {
@@ -62,6 +64,12 @@ class ViewController: UIViewController {
         score = 0
         correctAnswer = 0
         round = 0
+        present(ac, animated: true)
+    }
+    
+    @objc func showScore() {
+        let ac = UIAlertController(title: "Score", message: "Your current score is \(score)", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default))
         present(ac, animated: true)
     }
     
