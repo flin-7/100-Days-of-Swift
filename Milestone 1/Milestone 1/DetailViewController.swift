@@ -32,7 +32,7 @@ class DetailViewController: UIViewController {
             let name = flagName.components(separatedBy: "@")[0].uppercased()
             return name
         }
-        return "The flag name is unavaliable"
+        return "The flag name is unavailable"
     }
     
     override func viewWillAppear(_ animated: Bool) {
