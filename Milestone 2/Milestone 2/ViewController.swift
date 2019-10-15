@@ -17,8 +17,11 @@ class ViewController: UITableViewController {
         title = "Shopping List"
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        let addbutton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
+        let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        navigationItem.rightBarButtonItems = [shareButton, addbutton]
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(removeAll))
     }
     
     @objc func addItem() {
@@ -39,6 +42,11 @@ class ViewController: UITableViewController {
         let vc = UIActivityViewController(activityItems: [list], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
         present(vc, animated: true)
+    }
+    
+    @objc func removeAll() {
+        shoppingList.removeAll(keepingCapacity: true)
+        tableView.reloadData()
     }
     
     func submit(_ item: String) {
