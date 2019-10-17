@@ -25,13 +25,29 @@ class DetailViewController: UIViewController {
         
         let html = """
         <html>
+
         <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style> body { font-size: 150%; } </style>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+                h1 {
+                    font-size: 200%;
+                    color: darkgreen;
+                    font-family: 'Times New Roman', Times, serif;
+                }
+
+                p {
+                    font-size: 150%;
+                    color: blue;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+            </style>
         </head>
+
         <body>
-        \(detailItem.body)
+            <h1>\(detailItem.title)</h1>
+            <p>\(detailItem.body)</p>
         </body>
+
         </html>
         """
         
