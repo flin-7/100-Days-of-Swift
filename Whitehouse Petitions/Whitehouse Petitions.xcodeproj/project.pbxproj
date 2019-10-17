@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A00BAEAF235843E8007B255B /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BAEAE235843E8007B255B /* DetailViewController.swift */; };
 		A02021432356DBEA0090A74C /* Petition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02021422356DBEA0090A74C /* Petition.swift */; };
 		A02021452356DC490090A74C /* Petitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02021442356DC490090A74C /* Petitions.swift */; };
 		A070BC462356D8BB00CD6F79 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A070BC452356D8BB00CD6F79 /* AppDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A00BAEAE235843E8007B255B /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A02021422356DBEA0090A74C /* Petition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Petition.swift; sourceTree = "<group>"; };
 		A02021442356DC490090A74C /* Petitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Petitions.swift; sourceTree = "<group>"; };
 		A070BC422356D8BB00CD6F79 /* Whitehouse Petitions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Whitehouse Petitions.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +65,7 @@
 				A070BC452356D8BB00CD6F79 /* AppDelegate.swift */,
 				A070BC472356D8BB00CD6F79 /* SceneDelegate.swift */,
 				A070BC492356D8BB00CD6F79 /* ViewController.swift */,
+				A00BAEAE235843E8007B255B /* DetailViewController.swift */,
 				A02021422356DBEA0090A74C /* Petition.swift */,
 				A02021442356DC490090A74C /* Petitions.swift */,
 				A070BC4B2356D8BB00CD6F79 /* Main.storyboard */,
@@ -147,6 +150,7 @@
 				A070BC4A2356D8BB00CD6F79 /* ViewController.swift in Sources */,
 				A02021432356DBEA0090A74C /* Petition.swift in Sources */,
 				A070BC462356D8BB00CD6F79 /* AppDelegate.swift in Sources */,
+				A00BAEAF235843E8007B255B /* DetailViewController.swift in Sources */,
 				A070BC482356D8BB00CD6F79 /* SceneDelegate.swift in Sources */,
 				A02021452356DC490090A74C /* Petitions.swift in Sources */,
 			);
