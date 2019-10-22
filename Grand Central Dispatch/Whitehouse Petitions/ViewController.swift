@@ -62,8 +62,15 @@ class ViewController: UITableViewController {
         
         ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak self, weak ac] _ in
             self?.keyWord = ac?.textFields?[0].text ?? ""
-            self?.filterData()
-            self?.tableView.reloadData()
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                self?.filterData()
+            }
+            
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+            
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
