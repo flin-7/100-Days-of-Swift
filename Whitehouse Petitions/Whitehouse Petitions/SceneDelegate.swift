@@ -14,6 +14,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        UITabBar.appearance().barTintColor = .black
+        UITabBar.appearance().tintColor = .red
+        UINavigationBar.appearance().barTintColor = .black
+        UINavigationBar.appearance().tintColor = .red
+        
         if let tabBarController = window?.rootViewController as? UITabBarController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "NavController")
