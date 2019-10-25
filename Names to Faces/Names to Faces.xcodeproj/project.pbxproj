@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2032E5B23639C3B0052EA5B /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2032E5A23639C3B0052EA5B /* Person.swift */; };
 		C2FB6541236271310073098B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB6540236271310073098B /* AppDelegate.swift */; };
 		C2FB6543236271310073098B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB6542236271310073098B /* SceneDelegate.swift */; };
 		C2FB6545236271310073098B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB6544236271310073098B /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C2032E5A23639C3B0052EA5B /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		C2FB653D236271310073098B /* Names to Faces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Names to Faces.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2FB6540236271310073098B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2FB6542236271310073098B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				C2FB6540236271310073098B /* AppDelegate.swift */,
 				C2FB6542236271310073098B /* SceneDelegate.swift */,
 				C2FB6544236271310073098B /* ViewController.swift */,
+				C2032E5A23639C3B0052EA5B /* Person.swift */,
 				C2FB6554236273640073098B /* PersonCell.swift */,
 				C2FB6546236271310073098B /* Main.storyboard */,
 				C2FB6549236271320073098B /* Assets.xcassets */,
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2032E5B23639C3B0052EA5B /* Person.swift in Sources */,
 				C2FB6545236271310073098B /* ViewController.swift in Sources */,
 				C2FB6541236271310073098B /* AppDelegate.swift in Sources */,
 				C2FB6555236273640073098B /* PersonCell.swift in Sources */,
