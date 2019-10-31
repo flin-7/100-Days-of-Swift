@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0F2EB5E236B31CF002731A5 /* FireParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = A0F2EB5D236B31CF002731A5 /* FireParticles.sks */; };
 		C29FB1482366521C00A2D0DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FB1472366521C00A2D0DF /* AppDelegate.swift */; };
 		C29FB14A2366521C00A2D0DF /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C29FB1492366521C00A2D0DF /* GameScene.sks */; };
 		C29FB14E2366521C00A2D0DF /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FB14D2366521C00A2D0DF /* GameScene.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A0F2EB5D236B31CF002731A5 /* FireParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireParticles.sks; sourceTree = "<group>"; };
 		C29FB1442366521C00A2D0DF /* Pachinko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pachinko.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C29FB1472366521C00A2D0DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C29FB1492366521C00A2D0DF /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				C29FB1542366521D00A2D0DF /* Assets.xcassets */,
 				C29FB1562366521D00A2D0DF /* LaunchScreen.storyboard */,
 				C29FB1592366521D00A2D0DF /* Info.plist */,
+				A0F2EB5D236B31CF002731A5 /* FireParticles.sks */,
 			);
 			path = Pachinko;
 			sourceTree = "<group>";
@@ -130,6 +133,7 @@
 			files = (
 				C29FB1532366521C00A2D0DF /* Main.storyboard in Resources */,
 				C29FB14A2366521C00A2D0DF /* GameScene.sks in Resources */,
+				A0F2EB5E236B31CF002731A5 /* FireParticles.sks in Resources */,
 				C29FB1552366521D00A2D0DF /* Assets.xcassets in Resources */,
 				C29FB1582366521D00A2D0DF /* LaunchScreen.storyboard in Resources */,
 			);
