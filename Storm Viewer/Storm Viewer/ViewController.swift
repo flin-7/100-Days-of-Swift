@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UITableViewController {
     var pictures = [String]()
+    var pictureViewCount = [String: Int]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,9 @@ class ViewController: UITableViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         performSelector(inBackground: #selector(loadPictures), with: nil)
+        
+        let defaults = UserDefaults.standard
+        pictureViewCount = defaults.object(forKey: "ViewCount") as? [String: Int] ?? [String: Int]()
     }
     
     @objc func loadPictures() {
@@ -54,6 +58,7 @@ class ViewController: UITableViewController {
             let picture = pictures[indexPath.row]
             vc.selectedImage = picture
             vc.totalPictures = pictures.count
+            pictureViewCount[pictures[indexPath.row], default: 0] += 1
             if let index = pictures.firstIndex(of: picture) {
                 vc.selectedPictureNumber = index + 1
             }
