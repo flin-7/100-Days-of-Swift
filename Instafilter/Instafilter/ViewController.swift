@@ -12,6 +12,8 @@ import CoreImage
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var intensity: UISlider!
+    @IBOutlet var changeFilterButton: UIButton!
+    @IBOutlet var radius: UISlider!
     
     var currentImage: UIImage!
     var context: CIContext!
@@ -65,11 +67,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func save(_ sender: Any) {
-        guard let image = imageView.image else { return }
-        UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        if let image = imageView.image {
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        } else {
+            let ac = UIAlertController(title: "No Image", message: nil, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
     
     @IBAction func intensityChanged(_ sender: Any) {
+        applyProcessing()
+    }
+    
+    @IBAction func radiusChange(_ sender: Any) {
         applyProcessing()
     }
     
@@ -81,7 +92,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         
         if inputKey.contains(kCIInputRadiusKey) {
-            currentFilter.setValue(intensity.value * 200, forKey: kCIInputRadiusKey)
+            currentFilter.setValue(radius.value * 200, forKey: kCIInputRadiusKey)
         }
         
         if inputKey.contains(kCIInputScaleKey) {
@@ -104,6 +115,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         guard currentImage != nil else { return }
         guard let actionTitle = action.title else { return }
         
+        changeFilterButton.setTitle(actionTitle, for: .normal)
         currentFilter = CIFilter(name: actionTitle)
         
         let beginImage = CIImage(image: currentImage)
