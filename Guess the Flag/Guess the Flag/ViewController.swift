@@ -77,6 +77,12 @@ class ViewController: UIViewController {
         var title: String
         var message: String
         
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: [], animations: {
+            sender.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        }) { _ in
+            sender.transform = .identity
+        }
+        
         if sender.tag == correctAnswer {
             title = "Correct"
             score += 1
