@@ -24,6 +24,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    var seconds = 1.0
+    var rounds = 1
+    
     override func didMove(to view: SKView) {
         backgroundColor = .black
         
@@ -49,7 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-        gameTimer = Timer.scheduledTimer(timeInterval: 0.35, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
+        gameTimer = Timer.scheduledTimer(timeInterval: seconds, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
     }
     
     @objc func createEnemy() {
@@ -65,6 +68,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         sprite.physicsBody?.angularVelocity = 5
         sprite.physicsBody?.linearDamping = 0
         sprite.physicsBody?.angularDamping = 0
+        
+        rounds += 1
+        
+        if rounds == 20 && seconds > 0.3 {
+            rounds = 0
+            seconds -= 0.1
+            gameTimer?.invalidate()
+            gameTimer = Timer.scheduledTimer(timeInterval: seconds, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -98,6 +110,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(explosion)
         
         player.removeFromParent()
+        gameTimer?.invalidate()
+        isGameOver = true
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        player.removeFromParent()
+        gameTimer?.invalidate()
         isGameOver = true
     }
 }
