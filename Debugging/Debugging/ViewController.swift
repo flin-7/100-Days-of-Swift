@@ -24,8 +24,15 @@ class ViewController: UIViewController {
         for i in 1...100 {
             print("Got number \(i).")
         }
+        
+//        print(2.square())
     }
 
 
 }
 
+extension Int {
+    func square() -> Int {
+        return self * self
+    }
+}
