@@ -18,6 +18,7 @@
 		C27906FB2388CD4900ADEA87 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27906F92388CD4900ADEA87 /* MainInterface.storyboard */; };
 		C27906FF2388CD4900ADEA87 /* Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C27906F32388CD4900ADEA87 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C27907052388CFF200ADEA87 /* Action.js in Resources */ = {isa = PBXBuildFile; fileRef = C27907042388CFF200ADEA87 /* Action.js */; };
+		E5429A1A238A14680088016A /* ScriptsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5429A19238A14680088016A /* ScriptsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		C27906FA2388CD4900ADEA87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		C27906FC2388CD4900ADEA87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C27907042388CFF200ADEA87 /* Action.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Action.js; sourceTree = "<group>"; };
+		E5429A19238A14680088016A /* ScriptsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			children = (
 				C27906F52388CD4900ADEA87 /* Media.xcassets */,
 				C27906F72388CD4900ADEA87 /* ActionViewController.swift */,
+				E5429A19238A14680088016A /* ScriptsViewController.swift */,
 				C27906F92388CD4900ADEA87 /* MainInterface.storyboard */,
 				C27906FC2388CD4900ADEA87 /* Info.plist */,
 				C27907042388CFF200ADEA87 /* Action.js */,
@@ -238,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C27906F82388CD4900ADEA87 /* ActionViewController.swift in Sources */,
+				E5429A1A238A14680088016A /* ScriptsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
