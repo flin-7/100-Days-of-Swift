@@ -11,6 +11,7 @@ import SpriteKit
 class GameScene: SKScene {
     var gameTimer: Timer?
     var fireworks = [SKNode]()
+    var scoreLabel: SKLabelNode!
     
     let leftEdge = -22
     let bottomEdge = -22
@@ -18,9 +19,12 @@ class GameScene: SKScene {
     
     var score = 0 {
         didSet {
-            
+            scoreLabel.text = "Score: \(score)"
         }
     }
+    
+    var launches = 0
+    let maxLaunches = 10
     
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "background")
@@ -30,6 +34,14 @@ class GameScene: SKScene {
         addChild(background)
         
         gameTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
+        
+        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        scoreLabel.position = CGPoint(x: 16, y: 16)
+        scoreLabel.horizontalAlignmentMode = .left
+        addChild(scoreLabel)
+        
+        score = 0
+        launches = 0
     }
     
     func createFirework(xMovement: CGFloat, x: Int, y: Int) {
@@ -68,6 +80,14 @@ class GameScene: SKScene {
     
     @objc func launchFireworks() {
         let movementAmount: CGFloat = 1000
+        
+        launches += 1
+        if launches >= maxLaunches {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [unowned self] in
+                self.gameOver()
+            }
+            return
+        }
         
         switch Int.random(in: 0...3) {
         case 0:
@@ -149,6 +169,11 @@ class GameScene: SKScene {
         if let emitter = SKEmitterNode(fileNamed: "explode") {
             emitter.position = firework.position
             addChild(emitter)
+            
+            let waitAction = SKAction.wait(forDuration: 2)
+            let removeAction = SKAction.run { emitter.removeFromParent() }
+            let sequence = SKAction.sequence([waitAction, removeAction])
+            emitter.run(sequence)
         }
         
         firework.removeFromParent()
@@ -181,5 +206,22 @@ class GameScene: SKScene {
         default:
             score += 4000
         }
+    }
+    
+    func gameOver() {
+        gameTimer?.invalidate()
+        
+        let gameOverTitle = SKSpriteNode(imageNamed: "game-over")
+        gameOverTitle.position = CGPoint(x: 512, y: 384)
+        gameOverTitle.setScale(2)
+        gameOverTitle.alpha = 0
+        
+        let fadeIn = SKAction.fadeIn(withDuration: 0.3)
+        let scaleDown = SKAction.scale(to: 1, duration: 0.3)
+        let group = SKAction.group([fadeIn, scaleDown])
+        
+        gameOverTitle.run(group)
+        gameOverTitle.zPosition = 900
+        addChild(gameOverTitle)
     }
 }
