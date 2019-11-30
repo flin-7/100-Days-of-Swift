@@ -14,6 +14,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var locationManager: CLLocationManager?
     
+    var firstDetection = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,8 +69,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         if let beacon = beacons.first {
             update(distance: beacon.proximity)
+            showFirstDetection()
         } else {
             update(distance: .unknown)
+        }
+    }
+    
+    func showFirstDetection() {
+        if firstDetection {
+            firstDetection = false
+            let ac = UIAlertController(title: "iBeacon detected", message: nil, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
         }
     }
 }
