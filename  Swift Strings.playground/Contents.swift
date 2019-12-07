@@ -36,7 +36,35 @@ extension String {
         }
         return false
     }
+    
+    // challenges
+    func withPrefix(_ prefix: String) -> String {
+        if self.hasPrefix(prefix) {
+            return self
+        }
+        return prefix + self
+    }
+    
+    func isNumeric() -> Bool {
+        for char in self {
+            if char.wholeNumberValue != nil {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func lines() -> [String] {
+        return self.components(separatedBy: "\n")
+    }
 }
+
+"pet".withPrefix("car")
+"carpet".withPrefix("car")
+"pet".isNumeric()
+"pet1".isNumeric()
+"321".isNumeric()
+"this\nis\na\ntest".lines()
 
 let letter2 = name[3]
 
@@ -73,3 +101,4 @@ attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 16), rang
 attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 24), range: NSRange(location: 8, length: 1))
 attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 32), range: NSRange(location: 10, length: 4))
 attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 40), range: NSRange(location: 15, length: 6))
+
