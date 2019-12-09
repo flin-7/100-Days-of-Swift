@@ -20,8 +20,14 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         super.viewDidLoad()
         
         title = "Selfie Share"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
+        let cameraBarButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
+        let connectedPeersBarButton = UIBarButtonItem(title: "Peers", style: .plain, target: self, action: #selector(showPeers))
+        navigationItem.rightBarButtonItems = [connectedPeersBarButton, cameraBarButton]
+        
+        
+        let addPoctureButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
+        let sendMessageButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(sendMessagePrompt))
+        navigationItem.leftBarButtonItems = [addPoctureButton, sendMessageButton]
         
         mcSession = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
         mcSession?.delegate = self
@@ -40,6 +46,58 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         ac.addAction(UIAlertAction(title: "Join a session", style: .default, handler: joinSession))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
+    }
+    
+    @objc func sendMessagePrompt() {
+        let ac = UIAlertController(title: "Message", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.addAction(UIAlertAction(title: "Send", style: .default, handler: { [weak self] _ in
+            if let text = ac.textFields?[0].text {
+                self?.sendMessage(text: text)
+            }
+        }))
+        present(ac, animated: true)
+    }
+    
+    @objc func showPeers() {
+        guard let mcSession = mcSession else { return }
+        var text = ""
+        
+        var peersAvailable = false
+        
+        if mcSession.connectedPeers.count > 0 {
+            peersAvailable = true
+            for peer in mcSession.connectedPeers {
+                text += "\n\(peer.displayName)"
+            }
+        } else {
+            peersAvailable = false
+            text = "No peer connected"
+        }
+        
+        let ac = UIAlertController(title: "Connected peers", message: text, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
+    }
+    
+    func sendMessage(text: String) {
+        let data = Data(text.utf8)
+        sendData(data: data)
+    }
+    
+    func sendData(data: Data) {
+        guard let mcSession = mcSession else { return }
+        
+        if mcSession.connectedPeers.count > 0 {
+            do {
+                try mcSession.send(data, toPeers: mcSession.connectedPeers, with: .reliable)
+            } catch {
+                let ac = UIAlertController(title: "Send error", message: error.localizedDescription, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                present(ac, animated: true)
+            }
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -121,6 +179,9 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
             
         case .notConnected:
             print("Not Connected: \(peerID.displayName)")
+            let ac = UIAlertController(title: "\(peerID.displayName) disconnected", message: nil, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
             
         @unknown default:
             print("Unknown state received: \(peerID.displayName)")
@@ -132,6 +193,11 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
             if let image = UIImage(data: data) {
                 self?.images.insert(image, at: 0)
                 self?.collectionView.reloadData()
+            } else {
+                let text = String(decoding: data, as: UTF8.self)
+                let ac = UIAlertController(title: "Message Received", message: text, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                self?.present(ac, animated: true)
             }
         }
     }
