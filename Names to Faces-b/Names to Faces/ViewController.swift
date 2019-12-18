@@ -7,14 +7,24 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 class ViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var people = [Person]()
+    
+    var hiddenPeople = [Person]()
+    var unlockButton: UIBarButtonItem!
+    var addButton: UIBarButtonItem!
+    var doneButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
+        addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
+        doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(lock))
+        
+        unlockButton = UIBarButtonItem(title: "Unlock", style: .plain, target: self, action: #selector(authenticateTapped))
+        navigationItem.rightBarButtonItem = unlockButton
         
         let defaults = UserDefaults.standard
         
@@ -22,11 +32,14 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
             let jsonDecoder = JSONDecoder()
             
             do {
-                people = try jsonDecoder.decode([Person].self, from: savedPeople)
+                hiddenPeople = try jsonDecoder.decode([Person].self, from: savedPeople)
             } catch {
                 print("Failed to load people.")
             }
         }
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(lock), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -82,6 +95,45 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         } else {
             showPicker(fromCamera: false)
         }
+    }
+    
+    @objc func authenticateTapped() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Identify yourself!"
+            
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [weak self] success, error in
+                DispatchQueue.main.async {
+                    if success {
+                        self?.unlock()
+                    } else {
+                        let ac = UIAlertController(title: "Authentication failed", message: "You could not be verified; please try again.", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "OK", style: .default))
+                        self?.present(ac, animated: true)
+                    }
+                }
+            }
+        } else {
+            let ac = UIAlertController(title: "Biometry unavailable", message: "Your device is not configured for biometric authentication.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
+    
+    @objc func lock() {
+        navigationItem.rightBarButtonItem = unlockButton
+        navigationItem.leftBarButtonItem = nil
+        people = [Person]()
+        collectionView.reloadData()
+    }
+    
+    func unlock() {
+        navigationItem.rightBarButtonItem = addButton
+        navigationItem.leftBarButtonItem = doneButton
+        people = hiddenPeople
+        collectionView.reloadData()
     }
     
     func showPicker(fromCamera: Bool) {
